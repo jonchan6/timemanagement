@@ -20,4 +20,7 @@ public class MainActivity extends Activity {
         return true;
     }
     
+    public int functionForJon(int someInt) {
+    	return someInt;
+    }
 }
