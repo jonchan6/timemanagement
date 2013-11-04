@@ -5,4 +5,13 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
+    <!-- Action Bar Titles -->
+    <string name="categories">Categories</string>
+    <string name="add_category">Add New Category</string>
+    <string name="new_time">Add New Time</string>
+    <string name="missed_time">Enter Missed Time</string>
+    <string name="statistics">Statistics</string>
+    
+    <!-- home fragment strings -->
+    <string name="top_3_time_wasters">Top 3 time wasters</string>
 </resources>
