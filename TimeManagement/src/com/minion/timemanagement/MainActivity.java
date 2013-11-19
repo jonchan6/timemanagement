@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentManager.OnBackStackChangedListener;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
@@ -24,12 +25,23 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        // Create a new fragment
-        Fragment fragment = new HomeFragment();	
+        // Create a new home fragment
+        Fragment homeFragment = new HomeFragment();	
+		
+		FragmentManager fragmentManager = getFragmentManager();
+		
+		//If there are no fragments in the backstack then activity will close.
+		//This makes sure that there is no empty page state before the app exits.
+		fragmentManager.addOnBackStackChangedListener(new OnBackStackChangedListener() {
+
+			@Override
+			public void onBackStackChanged() {
+				if (getFragmentManager().getBackStackEntryCount() == 0) finish();	
+			}
+		}); 
 		
 		//Insert the fragment by replacing any existing fragment
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+		fragmentManager.beginTransaction().replace(R.id.content_frame, homeFragment).addToBackStack(null).commit();
         
         navigationList = getResources().getStringArray(R.array.navigation_list);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -42,6 +54,7 @@ public class MainActivity extends Activity {
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
 
+    //click listener for navigation drawer
     private class DrawerItemClickListener implements OnItemClickListener {
     	@Override
     	public void onItemClick(AdapterView parent, View view, int position, long id) {
